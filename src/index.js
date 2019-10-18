@@ -25,7 +25,6 @@ function App() {
         </p>
       </div>
 
-
       <div className="svg-container">
         <svg
           viewBox="0 0 1000 1000"
@@ -33,7 +32,7 @@ function App() {
           className="mass_big_logo"
         >
 
-          <clipPath id="mass_big_logo_clip">
+          <clipPath>
             <text xlinkHref="#mass_big_logo" id="mass_big_logo">
               <tspan x="0" dy="1.2em">M A</tspan>
               <tspan x="0" dy="1.2em">S S</tspan>
@@ -69,7 +68,7 @@ function App() {
         <input
           type="range"
           min={-5}
-          max={40}
+          max={80}
           value={headingWidth}
           step="0.001"
           onChange={e => setHeadingWidth(e.target.value)}
@@ -78,16 +77,13 @@ function App() {
           {headingWidth}
         </p>
 
-        <svg viewBox="0 0 1000 250" className="heading_text">
-          <defs>
-            <text id="heading_text" dx="0" dy="130" shapeRendering="optimizeSpeed">
+        <svg viewBox="0 0 1000 150" className="heading_text">
+
+          <clipPath id="heading_text_clip">
+            <text id="heading_text" dx="200" dy="130" shapeRendering="optimizeSpeed">
               Could use this for headings
             </text>
-
-            <clipPath id="heading_text_clip">
-              <use xlinkHref="#heading_text" />
-            </clipPath>
-          </defs>
+          </clipPath>
 
           <use
             x="0"
@@ -100,6 +96,16 @@ function App() {
             fill="#000"
             clipPath={headingWidth > 0 ? null : 'url(#heading_text_clip)'}
           />
+          {headingWidth > 0 &&
+            <use
+              xlinkHref="#heading_text"
+              stroke='#000'
+              strokeWidth={headingWidth * 1.25}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="#000"
+            />
+          }
         </svg>
       </div>
     </>

@@ -26,27 +26,19 @@ function App() {
       </div>
 
 
-<div className="svg-container">
-  
-
+      <div className="svg-container">
         <svg
           viewBox="0 0 1000 1000"
           preserveAspectRatio="xMidYMid meet"
           className="mass_big_logo"
-          style={{
-            filter: bigLogoWidth < -15 ? 'blur(3px) contrast(10)' : null
-          }}
         >
-          <defs>
-            <text id="mass_big_logo" y="-0.25em">
+
+          <clipPath id="mass_big_logo_clip">
+            <text xlinkHref="#mass_big_logo" id="mass_big_logo">
               <tspan x="0" dy="1.2em">M A</tspan>
               <tspan x="0" dy="1.2em">S S</tspan>
             </text>
-
-            <clipPath id="mass_big_logo_clip">
-              <use xlinkHref="#mass_big_logo" />
-            </clipPath>
-          </defs>
+          </clipPath>
 
           <use
             xlinkHref="#mass_big_logo"
@@ -56,7 +48,6 @@ function App() {
             strokeLinejoin="round"
             fill="#000"
             shapeRendering="optimizeSpeed"
-            clipPath={bigLogoWidth > 0 ? null : 'url(#mass_big_logo_clip)'}
           />
 
           {bigLogoWidth > 0 &&

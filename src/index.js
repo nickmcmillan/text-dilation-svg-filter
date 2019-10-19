@@ -11,6 +11,10 @@ function App() {
 
   return (
     <>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem voluptate deleniti unde recusandae! Tempore voluptatibus eveniet esse sequi quas, asperiores obcaecati, nihil quia perferendis nobis natus suscipit voluptatum magni dolore.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem voluptate deleniti unde recusandae! Tempore voluptatibus eveniet esse sequi quas, asperiores obcaecati, nihil quia perferendis nobis natus suscipit voluptatum magni dolore.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem voluptate deleniti unde recusandae! Tempore voluptatibus eveniet esse sequi quas, asperiores obcaecati, nihil quia perferendis nobis natus suscipit voluptatum magni dolore.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem voluptate deleniti unde recusandae! Tempore voluptatibus eveniet esse sequi quas, asperiores obcaecati, nihil quia perferendis nobis natus suscipit voluptatum magni dolore.</p>
       <DilatedHeading
         innerText="This is some fancy chonky texto"
         />

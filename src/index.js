@@ -17,12 +17,20 @@ function App() {
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem voluptate deleniti unde recusandae! Tempore voluptatibus eveniet esse sequi quas, asperiores obcaecati, nihil quia perferendis nobis natus suscipit voluptatum magni dolore.</p>
       
       <DilatedHeading
-        innerText="This is some fancy chonky texto"
+        innerText="We embrace the freedom to be"
+        innerText2="creative, we encourage our employees"
+        innerText3="to think differently, to think critically"
+        spread={7}
+        maxFat={10}
+        textColor="#fff"
+      />
+      {/* <DilatedHeading
+        innerText="and perhaps another line"
         spread={6}
         maxFat={15}
-      />
+      /> */}
       
-        <BigLogo />
+        {/* <BigLogo /> */}
     </>
   )
 }

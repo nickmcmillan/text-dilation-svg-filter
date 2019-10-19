@@ -14,7 +14,8 @@ html {
 
 body {
   margin: 0;
-  /* background-color: pink; */
+  background-color: #000;
+  color: #fff;
 }
 
 .App {
@@ -35,18 +36,19 @@ svg {
 }
 
 .DilatedHeading {
-  padding: 2rem;
+  /* padding: 2rem; */
+  font-family: 'sg', sans-serif;
+  font-size: 35px;
+  width: 53rem;
+
 }
 
 .DilatedHeading_svg {
-  width: 100%;
+  /* width: 100%; */
   /* background-clip: content-box, padding-box;
   overflow: visible; */
-  font-size: 2rem;
   border: 1px solid red;
-  font-size: 3rem;
-  width: 100%;
-  height: 7rem;
+  /* height: 7rem; */
 }
 
 .mass_big_logo {
@@ -73,9 +75,9 @@ svg {
 } */
 
 @media (min-width: 680px) {
-  .heading_text {
+  /* .heading_text {
     font-size: 3rem;
-  }
+  } */
 }
 
 input[type='range'] {

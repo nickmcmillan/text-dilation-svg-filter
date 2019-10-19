@@ -18,8 +18,8 @@ function App() {
       
       <DilatedHeading
         innerText="This is some fancy chonky texto"
-        spread={8}
-        maxFat={10}
+        spread={6}
+        maxFat={15}
       />
       
         <BigLogo />

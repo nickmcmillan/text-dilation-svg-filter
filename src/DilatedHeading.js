@@ -19,7 +19,7 @@ const config = { mass: 5, tension: 510, friction: 73 }
 
 function DilatedHeading({innerText, spread = 8, maxFat = 20}) {
 
-  const items = innerText.split('')
+  const characters = innerText.split('')
 
   const [textRef, getBoundingClientRect] = useDimensions()
 
@@ -29,12 +29,12 @@ function DilatedHeading({innerText, spread = 8, maxFat = 20}) {
     
     const innerX = x - getBoundingClientRect.x
     const innerY = y - getBoundingClientRect.y
-    const mappedX = map_range(innerX, 0, getBoundingClientRect.width, 0, items.length)
-    const mappedY = map_range(innerY, 0, getBoundingClientRect.height, 0, items.length)
+    const mappedX = map_range(innerX, 0, getBoundingClientRect.width, 0, characters.length)
+    const mappedY = map_range(innerY, 0, getBoundingClientRect.height, 0, characters.length)
 
     set({ xy: [mappedX, mappedY] })
 
-  }, [getBoundingClientRect, set, items])
+  }, [getBoundingClientRect, set, characters])
 
   return (
     <div className="DilatedHeading" onMouseMove={onMouseMove}>
@@ -51,13 +51,13 @@ function DilatedHeading({innerText, spread = 8, maxFat = 20}) {
           x="10"
           y="50"
         >
-            {items.map((letter, i) => {
+            {characters.map((char, i) => {
               return (
                 <animated.tspan
                   shapeRendering="geometricprecision"
                   strokeLinejoin="round"
                   fill="#000"
-                  key={letter + i}
+                  key={char + i}
                   // stroke={headingWidth > 0 ? '#000' : '#fff'}
                   stroke='#000'
                   strokeWidth={xy.interpolate((x, y) => {
@@ -71,7 +71,7 @@ function DilatedHeading({innerText, spread = 8, maxFat = 20}) {
 
                   })}
                 >
-                  {letter}
+                  {char}
                 </animated.tspan>
               )
             })}

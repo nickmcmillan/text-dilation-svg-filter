@@ -20,8 +20,8 @@ function App() {
         innerText="We embrace the freedom to be"
         innerText2="creative, we encourage our employees"
         innerText3="to think differently, to think critically"
-        spread={7}
-        maxFat={10}
+        spread={10}
+        maxFat={20}
         textColor="#fff"
       />
       {/* <DilatedHeading

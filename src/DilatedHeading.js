@@ -7,9 +7,6 @@ function map_range(value, low1, high1, low2, high2) {
   return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
 }
 
-const maxFat = 20
-const spread = 10
-
 const distanceXY = (mouseX, mouseY, startingLeft, startingTop) => {
   return Math.sqrt(Math.abs(startingTop - mouseY ) + Math.pow(startingLeft - mouseX, 2)) || 0
 }
@@ -20,16 +17,14 @@ const distanceXY = (mouseX, mouseY, startingLeft, startingTop) => {
 
 const config = { mass: 5, tension: 410, friction: 103 }
 
-function Heading({innerText}) {
+function Heading({innerText, spread = 8, maxFat = 20}) {
   const [headingWidth, setHeadingWidth] = useState(0)
 
   const items = innerText.split('')
 
   const [textRef, getBoundingClientRect] = useDimensions()
-  console.log(getBoundingClientRect)
-  
 
-  const [{ xy }, set] = useSpring(() => ({ xy: [0, -150], config }))
+  const [{ xy }, set] = useSpring(() => ({ xy: [10, 300], config }))
 
   const onMouseMove = useCallback(({ clientX: x, clientY: y }) => {
     
@@ -41,8 +36,6 @@ function Heading({innerText}) {
     set({ xy: [mappedX, mappedY] })
 
   }, [getBoundingClientRect, set, items])
-
-  
 
   return (
     <>
@@ -59,16 +52,15 @@ function Heading({innerText}) {
           >
           
           <text
-              className="heading_text"
-            // id="heading_text"
-            x="40"
-            y="40"
+            className="heading_text"
+            x="0"
+            y="0"
             width="100%"
-            shapeRendering="optimizeSpeed"
             ref={textRef}
-            // strokeLinecap="round"
             strokeLinejoin="round"
             fill="#000"
+            // shapeRendering="optimizeSpeed"
+            // strokeLinecap="round"
             // textAnchor="start"
               // x="-24.140625" y="-11.890625" width="48.265625" height="17"
             

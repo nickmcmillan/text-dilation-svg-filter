@@ -10,13 +10,15 @@ function map_range(value, low1, high1, low2, high2) {
 const maxFat = 5
 const spread = 15
 
-// const distance = (mouseX, mouseY, startingLeft, startingTop) => {
-const distance = (mouseX, startingLeft) => {
-  return Math.pow(startingLeft - mouseX, 2)
-  // return Math.round(Math.sqrt(Math.pow(startingTop - mouseY, 2) + Math.pow(startingLeft - mouseX, 2)))
+const distanceXY = (mouseX, mouseY, startingLeft, startingTop) => {
+  return Math.round(Math.sqrt(Math.pow(startingTop - mouseY, 2) + Math.pow(startingLeft - mouseX, 2)))
 }
 
-const config = { mass: 5, tension: 4000, friction: 200 }
+const distanceX = (mouseX, startingLeft) => {
+  return Math.pow(startingLeft - mouseX, 2)
+}
+
+const config = { mass: 12, tension: 410, friction: 103 }
 const calc = (x, y) => [x, y]
 
 function Heading({innerText}) {
@@ -34,9 +36,10 @@ function Heading({innerText}) {
   
 
   const [props, set] = useSpring(() => ({
-    x: 0,
-    y: 0,
-    // config: { mass: 10, tension: 550, friction: 140 }
+    xy: [0, 0,],
+    // x: 0,
+    // y: 0,
+    config
   }))
 
 
@@ -67,7 +70,7 @@ function Heading({innerText}) {
         <svg
           // height="200" width="00"
           // viewBox="0 0 240 80" 
-          className="heading_text"
+          
           onMouseMove={({ clientX: x, clientY: y }) => {
             // const inWidth = x >= getBoundingClientRect.x && x < getBoundingClientRect.width + getBoundingClientRect.x
             // const inHeight = y >= getBoundingClientRect.y && y < getBoundingClientRect.height + getBoundingClientRect.y
@@ -91,12 +94,13 @@ function Heading({innerText}) {
             // setMousePosition({ x: innerX, y: innerY });
             // }
 
-            set({ x: mappedX })
+            set({ xy: [mappedX, mappedY] })
           }}
         >
         
         <text
-          id="heading_text"
+            className="heading_text"
+          // id="heading_text"
           x="10"
           y="50"
           // shapeRendering="optimizeSpeed"
@@ -104,6 +108,7 @@ function Heading({innerText}) {
           strokeLinecap="round"
           strokeLinejoin="round"
           fill="#000"
+          textAnchor="start"
           
         >
             {items.map((word, i) => {
@@ -113,28 +118,15 @@ function Heading({innerText}) {
                   // stroke={headingWidth > 0 ? '#000' : '#fff'}
                   stroke='#000'
                   // strokeWidth={Math.abs(headingWidth)}
-                  strokeWidth={props.x.interpolate((uh) => {
-                    // if (i === 5) {
+                  strokeWidth={props.xy.interpolate((x, y) => {
 
-                      const fromMouse = distance(uh, i)
-
-
-                      // console.log(fromMouse)
-                      
+                    // const fromMouse = distanceXY(x, y, i, 10)
+                    const fromMouse = distanceX(x, i)
                     const mapMouse = map_range(fromMouse, 0, spread, maxFat, 0)
-                      // console.log(mapMouse)
-                      if (mapMouse > maxFat) {
-                        return maxFat
-                      } else if (mapMouse < 0) {
-                        return 0
-                      } else {
-                        return mapMouse
-                      }
+                    const clamp = Math.min(Math.max(0, mapMouse), maxFat)
+                    const rounded = Math.round(clamp * 100 + Number.EPSILON) / 100
+                    return rounded
 
-                    // }
-                    // return 1
-                    // return Math.floor(uh / i -1 || 0)
-                    
                   })}
                 >
                   {word}

@@ -39,8 +39,14 @@ svg {
 }
 
 .heading_text {
-  font-size: 3rem;
+  font-size: 2rem;
   will-change: stroke-width;
+}
+
+@media (min-width: 680px) {
+  .heading_text {
+    font-size: 3rem;
+  }
 }
 
 input[type='range'] {

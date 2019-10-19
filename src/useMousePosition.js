@@ -14,7 +14,7 @@ const useMousePosition = (target) => {
     const inHeight = e.clientY >= target.y && e.clientY < target.height + target.y
 
     
-    if (inWidth && inHeight) {
+    // if (inWidth && inHeight) {
       const innerX = e.clientX - target.x
       const innerY = e.clientY - target.y
 
@@ -24,9 +24,9 @@ const useMousePosition = (target) => {
       // console.log(mappedX, mappedY)
       
     
-      setMousePosition({ x: innerX, y: innerY });
-      // setMousePosition({ x: e.clientX, y: e.clientY });
-    }
+      // setMousePosition({ x: innerX, y: innerY });
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    // }
     
   };
 

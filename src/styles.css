@@ -11,7 +11,6 @@ body {
 
 .App {
   font-family: sans-serif;
-  text-align: center;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -27,6 +26,20 @@ svg {
   width: 100%;
 }
 
+.DilatedHeading {
+  padding: 2rem;
+}
+
+.DilatedHeading_svg {
+  width: 100%;
+  background-clip: content-box, padding-box;
+  overflow: visible;
+  font-size: 2rem;
+  will-change: stroke-width;
+  font-family: sans-serif;
+  font-weight: normal;
+}
+
 .mass_big_logo {
   font-size: 20rem;
   transition: filter 100ms linear;
@@ -39,10 +52,7 @@ svg {
 }
 
 .heading_text {
-  font-size: 2rem;
-  will-change: stroke-width;
-  font-family: sans-serif;
-  font-weight: normal;
+  
 }
 
 @media (min-width: 680px) {

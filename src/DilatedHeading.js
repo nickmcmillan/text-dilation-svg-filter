@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useSpring, animated } from 'react-spring'
 import useDimensions from './useDimensions'
 // import useMousePosition from "./useMousePosition"
@@ -17,16 +17,16 @@ const distanceXY = (mouseX, mouseY, startingLeft, startingTop) => {
 
 const config = { mass: 5, tension: 510, friction: 73 }
 
-function DilatedHeading({innerText, spread = 8, maxFat = 20}) {
+function DilatedHeading({ innerText, innerText2, spread = 8, maxFat = 20 }) {
 
   const characters = innerText.split('')
+  const characters2 = innerText2.split('')
 
   const [textRef, getBoundingClientRect] = useDimensions()
 
   const [{ xy }, set] = useSpring(() => ({ xy: [10, 300], config }))
 
   const onMouseMove = useCallback(({ clientX: x, clientY: y }) => {
-    
     const innerX = x - getBoundingClientRect.x
     const innerY = y - getBoundingClientRect.y
     const mappedX = map_range(innerX, 0, getBoundingClientRect.width, 0, characters.length)
@@ -36,10 +36,17 @@ function DilatedHeading({innerText, spread = 8, maxFat = 20}) {
 
   }, [getBoundingClientRect, set, characters])
 
+  useEffect(() => {
+    window.addEventListener("mousemove", onMouseMove)
+
+    return () => window.removeEventListener("mousemove", onMouseMove)
+  }, [getBoundingClientRect])
+
   return (
-    <div className="DilatedHeading" onMouseMove={onMouseMove}>
+    <div className="DilatedHeading" >
 
       <svg
+        // onMouseMove={onMouseMove}
         className="DilatedHeading_svg"
         // viewBox={`0 0 ${window.innerWidth} 0.01`}
         viewBox="-20 0 800 70"

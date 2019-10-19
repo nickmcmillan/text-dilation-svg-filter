@@ -14,9 +14,11 @@ function App() {
 
   return (
     <>
+    <BigLogo />
       <DilatedHeading
         innerText="This is some fancy chonky text"
       />
+      
 
       
     </>

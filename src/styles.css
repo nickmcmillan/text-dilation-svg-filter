@@ -41,6 +41,8 @@ svg {
 .heading_text {
   font-size: 2rem;
   will-change: stroke-width;
+  font-family: sans-serif;
+  font-weight: normal;
 }
 
 @media (min-width: 680px) {

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import { useSpring, animated } from 'react-spring'
 import useDimensions from './useDimensions'
 // import useMousePosition from "./useMousePosition"
@@ -15,10 +15,9 @@ const distanceXY = (mouseX, mouseY, startingLeft, startingTop) => {
 //   return Math.pow(startingLeft - mouseX, 2)
 // }
 
-const config = { mass: 5, tension: 410, friction: 103 }
+const config = { mass: 5, tension: 510, friction: 73 }
 
-function Heading({innerText, spread = 8, maxFat = 20}) {
-  const [headingWidth, setHeadingWidth] = useState(0)
+function DilatedHeading({innerText, spread = 8, maxFat = 20}) {
 
   const items = innerText.split('')
 
@@ -38,69 +37,50 @@ function Heading({innerText, spread = 8, maxFat = 20}) {
   }, [getBoundingClientRect, set, items])
 
   return (
-    <>
-      <div className="App" >
+    <div className="DilatedHeading" onMouseMove={onMouseMove}>
 
-        <div className="DilatedHeading" onMouseMove={onMouseMove}>
+      <svg
+        className="DilatedHeading_svg"
+        // viewBox={`0 0 ${window.innerWidth} 0.01`}
+        viewBox="-20 0 800 70"
+        ref={textRef}
+      >
+      
+        <text
+          className="heading_text"
+          x="10"
+          y="50"
+        >
+            {items.map((letter, i) => {
+              return (
+                <animated.tspan
+                  shapeRendering="geometricprecision"
+                  strokeLinejoin="round"
+                  fill="#000"
+                  key={letter + i}
+                  // stroke={headingWidth > 0 ? '#000' : '#fff'}
+                  stroke='#000'
+                  strokeWidth={xy.interpolate((x, y) => {
 
-          <svg
-            className="DilatedHeading_svg"
-            // height="5rem"
-            // width="00"
-            // viewBox={`0 0 ${window.innerWidth} 0.01`}
-            viewBox="-20 0 800 70"
-            ref={textRef}
-          >
-          
-          <text
-            className="heading_text"
-            x="10"
-            y="0"
-            
-            
-            
-            // strokeLinecap="round"
-            // textAnchor="start"
-              // x="-24.140625" y="-11.890625" width="48.265625" height="17"
-            
-          >
-              {items.map((letter, i) => {
-                return (
-                  <animated.tspan
-                    // x="10"
-                    // y="30"
-                    shapeRendering="geometricprecision"
-                    y="50"
-                    strokeLinejoin="round"
-                    fill="#000"
-                    key={letter + i}
-                    stroke={headingWidth > 0 ? '#000' : '#fff'}
-                    stroke='#000'
-                    // strokeWidth="10"
-                    strokeWidth={xy.interpolate((x, y) => {
+                    const fromMouse = distanceXY(x, y, i, 0)
+                    // const fromMouse = distanceX(x, i)
+                    const mapMouse = map_range(fromMouse, 0, spread, maxFat, 0)
+                    const clamp = Math.min(Math.max(0, mapMouse), maxFat)
+                    const rounded = Math.round(clamp * 100 + Number.EPSILON) / 100
+                    return rounded
 
-                      const fromMouse = distanceXY(x, y, i, 0)
-                      // const fromMouse = distanceX(x, i)
-                      const mapMouse = map_range(fromMouse, 0, spread, maxFat, 0)
-                      const clamp = Math.min(Math.max(0, mapMouse), maxFat)
-                      const rounded = Math.round(clamp * 100 + Number.EPSILON) / 100
-                      return rounded
+                  })}
+                >
+                  {letter}
+                </animated.tspan>
+              )
+            })}
 
-                    })}
-                  >
-                    {letter}
-                  </animated.tspan>
-                )
-              })}
+        </text>
 
-          </text>
-
-        </svg>
-        </div>
-        {/* <h2 className="heading_text">This is some HTML text</h2> */}
+      </svg>
     </div>
-    </>
   )
 }
 
-export default Heading
+export default DilatedHeading

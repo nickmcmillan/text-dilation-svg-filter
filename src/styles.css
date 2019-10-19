@@ -4,6 +4,14 @@
        url("./fonts/sg.woff") format("woff");
 }
 
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
 body {
   margin: 0;
   /* background-color: pink; */
@@ -35,7 +43,7 @@ svg {
   background-clip: content-box, padding-box;
   overflow: visible;
   font-size: 2rem;
-  will-change: stroke-width;
+  
   font-family: sans-serif;
   font-weight: normal;
 }
@@ -51,8 +59,16 @@ svg {
   height: 100%;
 }
 
+tspan {
+  will-change: stroke-width;
+  overflow: visible;
+  background-clip: content-box, padding-box;
+}
+
 .heading_text {
-  
+  will-change: stroke-width;
+  overflow: visible;
+  background-clip: content-box, padding-box;
 }
 
 @media (min-width: 680px) {

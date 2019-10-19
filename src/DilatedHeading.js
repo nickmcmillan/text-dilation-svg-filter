@@ -45,10 +45,11 @@ function Heading({innerText, spread = 8, maxFat = 20}) {
 
           <svg
             className="DilatedHeading_svg"
-            height="5rem"
+            // height="5rem"
             // width="00"
             // viewBox={`0 0 ${window.innerWidth} 0.01`}
             viewBox="0 0 800 40"
+            ref={textRef}
           >
           
           <text
@@ -56,7 +57,7 @@ function Heading({innerText, spread = 8, maxFat = 20}) {
             x="0"
             y="0"
             width="100%"
-            ref={textRef}
+            
             strokeLinejoin="round"
             fill="#000"
             // shapeRendering="optimizeSpeed"
@@ -93,7 +94,7 @@ function Heading({innerText, spread = 8, maxFat = 20}) {
 
         </svg>
         </div>
-        <h2 className="heading_text">This is some HTML text</h2>
+        {/* <h2 className="heading_text">This is some HTML text</h2> */}
     </div>
     </>
   )

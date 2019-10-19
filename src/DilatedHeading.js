@@ -48,19 +48,17 @@ function Heading({innerText, spread = 8, maxFat = 20}) {
             // height="5rem"
             // width="00"
             // viewBox={`0 0 ${window.innerWidth} 0.01`}
-            viewBox="0 0 800 40"
+            viewBox="-20 0 800 70"
             ref={textRef}
           >
           
           <text
             className="heading_text"
-            x="0"
+            x="10"
             y="0"
-            width="100%"
             
-            strokeLinejoin="round"
-            fill="#000"
-            // shapeRendering="optimizeSpeed"
+            
+            
             // strokeLinecap="round"
             // textAnchor="start"
               // x="-24.140625" y="-11.890625" width="48.265625" height="17"
@@ -71,9 +69,14 @@ function Heading({innerText, spread = 8, maxFat = 20}) {
                   <animated.tspan
                     // x="10"
                     // y="30"
+                    shapeRendering="geometricprecision"
+                    y="50"
+                    strokeLinejoin="round"
+                    fill="#000"
                     key={letter + i}
                     stroke={headingWidth > 0 ? '#000' : '#fff'}
                     stroke='#000'
+                    // strokeWidth="10"
                     strokeWidth={xy.interpolate((x, y) => {
 
                       const fromMouse = distanceXY(x, y, i, 0)

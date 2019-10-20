@@ -14,8 +14,20 @@ html {
 
 body {
   margin: 0;
-  background-color: #000;
   color: #fff;
+}
+
+section {
+  /* padding-bottom: 3rem; */
+  /* margin-bottom: 3rem; */
+}
+
+.dark {
+  background-color: #000;
+}
+
+.light {
+  background-color: #fff;
 }
 
 .App {

@@ -11,18 +11,35 @@ function App() {
 
   return (
     <>
+      <section className="dark">
+
+        <DilatedHeading
+          // className
+          // make this an array
+          innerText="We embrace the freedom to be"
+          innerText2="creative, we encourage our employees"
+          innerText3="to think differently, to think critically"
+          innerText4="and to solve a problem in a new way."
+          spread={10}
+          maxFat={20}
+          textColor="#fff"
+        />
+      </section>
       
-      <DilatedHeading
-        // className
-        // make this an array
-        innerText="We embrace the freedom to be"
-        innerText2="creative, we encourage our employees"
-        innerText3="to think differently, to think critically"
-        innerText4="and to solve a problem in a new way."
-        spread={10}
-        maxFat={20}
-        textColor="#fff"
-      />
+      <section className="light">
+
+        <DilatedHeading
+          // className
+          // make this an array
+          innerText="We embrace the freedom to be"
+          innerText2="creative, we encourage our employees"
+          innerText3="to think differently, to think critically"
+          innerText4="and to solve a problem in a new way."
+          spread={10}
+          maxFat={20}
+          textColor="#000"
+        />
+      </section>
       
         {/* <BigLogo /> */}
     </>

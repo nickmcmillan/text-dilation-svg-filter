@@ -24,7 +24,7 @@ function calcStroke({ x, y, i, spread, maxFat, getBoundingClientRect, line }, ch
   // console.log(y, top)
   
   const mappedX = map_range(x, 0, width, 0, characters.length)
-  const mappedY = map_range(y, 0, height, 0, 20)
+  const mappedY = map_range(y, 0, height, 0, 28)
   
   const fromMouse = distanceXY(mappedX, mappedY, i, line * 10)
   // console.log(fromMouse)
@@ -36,11 +36,12 @@ function calcStroke({ x, y, i, spread, maxFat, getBoundingClientRect, line }, ch
   return rounded
 }
 
-function DilatedHeading({ innerText, innerText2, innerText3, spread = 8, maxFat = 20, textColor = '#000' }) {
+function DilatedHeading({ innerText, innerText2, innerText3, innerText4, spread = 8, maxFat = 20, textColor = '#000' }) {
 
   const characters = innerText.split('')
   const characters2 = innerText2.split('')
   const characters3 = innerText3.split('')
+  const characters4 = innerText4.split('')
 
   const [textRef, getBoundingClientRect] = useDimensions()
 
@@ -130,6 +131,28 @@ function DilatedHeading({ innerText, innerText2, innerText3, spread = 8, maxFat 
                   // stroke={headingWidth > 0 ? '#000' : '#fff'}
                   stroke={textColor}
                   strokeWidth={xy.interpolate((x, y) => calcStroke({ x, y, i, spread, maxFat, getBoundingClientRect, line: 2}, characters3))}
+                >
+                  {char}
+                </animated.tspan>
+              )
+            })}
+        </text>
+        
+        <text
+          className="heading_text"
+          x="10"
+          y="200"
+        >
+            {characters4.map((char, i) => {
+              return (
+                <animated.tspan
+                  shapeRendering="geometricprecision"
+                  strokeLinejoin="round"
+                  fill={textColor}
+                  key={char + i}
+                  // stroke={headingWidth > 0 ? '#000' : '#fff'}
+                  stroke={textColor}
+                  strokeWidth={xy.interpolate((x, y) => calcStroke({ x, y, i, spread, maxFat, getBoundingClientRect, line: 2.5}, characters4))}
                 >
                   {char}
                 </animated.tspan>

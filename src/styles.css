@@ -47,8 +47,9 @@ svg {
   /* width: 100%; */
   /* background-clip: content-box, padding-box;
   overflow: visible; */
-  border: 1px solid red;
+  /* border: 1px solid red; */
   /* height: 7rem; */
+  height: 14rem;
 }
 
 .mass_big_logo {

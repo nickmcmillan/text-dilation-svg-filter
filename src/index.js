@@ -11,24 +11,18 @@ function App() {
 
   return (
     <>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem voluptate deleniti unde recusandae! Tempore voluptatibus eveniet esse sequi quas, asperiores obcaecati, nihil quia perferendis nobis natus suscipit voluptatum magni dolore.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem voluptate deleniti unde recusandae! Tempore voluptatibus eveniet esse sequi quas, asperiores obcaecati, nihil quia perferendis nobis natus suscipit voluptatum magni dolore.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem voluptate deleniti unde recusandae! Tempore voluptatibus eveniet esse sequi quas, asperiores obcaecati, nihil quia perferendis nobis natus suscipit voluptatum magni dolore.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem voluptate deleniti unde recusandae! Tempore voluptatibus eveniet esse sequi quas, asperiores obcaecati, nihil quia perferendis nobis natus suscipit voluptatum magni dolore.</p>
       
       <DilatedHeading
+        // className
+        // make this an array
         innerText="We embrace the freedom to be"
         innerText2="creative, we encourage our employees"
         innerText3="to think differently, to think critically"
+        innerText4="and to solve a problem in a new way."
         spread={10}
         maxFat={20}
         textColor="#fff"
       />
-      {/* <DilatedHeading
-        innerText="and perhaps another line"
-        spread={6}
-        maxFat={15}
-      /> */}
       
         {/* <BigLogo /> */}
     </>

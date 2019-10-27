@@ -44,15 +44,19 @@ section {
 }
 
 svg {
-  width: 100%;
+  /* width: 100%; */
+}
+
+.heading_text {
+  font-family: 'sg', sans-serif;
+  /* font-size: 35px; */
 }
 
 .DilatedHeading {
   /* padding: 2rem; */
-  font-family: 'sg', sans-serif;
-  font-size: 35px;
-  width: 53rem;
-
+  
+  /* width: 53rem; */
+  
 }
 
 .DilatedHeading_svg {
@@ -61,7 +65,11 @@ svg {
   overflow: visible; */
   /* border: 1px solid red; */
   /* height: 7rem; */
-  height: 14rem;
+  /* height: 14rem; */
+  border: 1px solid #eee;
+  display: block;
+  font-family: 'sg', sans-serif;
+  /* font-size: 35px; */
 }
 
 .mass_big_logo {

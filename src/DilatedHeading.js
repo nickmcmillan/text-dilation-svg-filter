@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { useSpring, animated } from 'react-spring'
 import useDimensions from './useDimensions'
 import calcStroke from "./calcStroke"
@@ -7,6 +7,34 @@ import calculateWordWidths from "./calculateWordWidths"
 
 
 const config = { mass: 5, tension: 510, friction: 73 }
+
+function Text({textColor, width, textValue, style = {}}) {
+
+  const { wordsWithComputedWidth, spaceWidth } = calculateWordWidths(textValue, style)
+  const lines = calculateLines(wordsWithComputedWidth, spaceWidth, width)
+
+  const lineHeight = 1.5
+
+  return (
+    <text
+      dy={`0.71em`}
+      x="10"
+      y="50"
+      strokeLinejoin="round"
+      fill={textColor}
+      stroke={textColor}
+      shapeRendering="geometricprecision"
+      width={width}
+      style={style}
+    >
+      {lines.map((word, index) => (
+        <tspan x={10} y={50} dy={`${index * lineHeight}em`} key={`${word}-${index}`}>
+          {word}
+        </tspan>
+      ))}
+    </text>
+  )
+}
 
 function DilatedHeading({
   innerText,
@@ -19,10 +47,7 @@ function DilatedHeading({
   textValue,
 }) {
 
-  const { wordsWithComputedWidth, spaceWidth } = calculateWordWidths(textValue, {});
-  const lines = calculateLines(wordsWithComputedWidth, spaceWidth, 250);
-
-  const lineHeight = 1.5
+  const [width, setWidth] = useState(window.innerWidth)
 
   const characters = innerText.split('')
   const characters2 = innerText2.split('')
@@ -37,7 +62,6 @@ function DilatedHeading({
     const innerY = y - getBoundingClientRect.y
     set({ xy: [innerX, innerY] })
   }, [getBoundingClientRect, set, characters])
-
 
   const [{ xy }, set] = useSpring(() => ({
     // from
@@ -54,40 +78,24 @@ function DilatedHeading({
   return (
     <div className="DilatedHeading">
 
+      <input type="range" min={10} max={1000} value={width} onChange={(e) => setWidth(e.target.value)} />
+
+      <p>width: {width}</p>
+
       <svg
         className="DilatedHeading_svg"
+        width={width}
+        height={400}
       >
-        <text
-          dy={`0.71em`}
-          className="heading_text"
-          x="10"
-          y="50"
-          strokeLinejoin="round"
-          fill={textColor}
-          stroke={textColor}
-          shapeRendering="geometricprecision"
+        <Text
+          textValue={textValue}
+          textColor='#fff'
+          width={width}
           style={{
-            width: window.innerWidth
+            fontSize: '2rem',
+            fontFamily: 'sg',
           }}
-        >
-          {lines.map((word, index) => (
-            <tspan x={10} y={50} dy={`${index * lineHeight}em`} key={`${word}-${index}`}>
-              {word}
-            </tspan>
-          ))}
-        </text>
-        {/* <Text
-          width={250}
-          className="heading_text"
-          x="10"
-          y="50"
-          strokeLinejoin="round"
-          fill={textColor}
-          stroke={textColor}
-          shapeRendering="geometricprecision"
-        >
-          We embrace the freedom to be creative, we encourage our employees to think differently, to think critically and to solve a problem in a new way.
-        </Text> */}
+        />
 
       </svg>
 

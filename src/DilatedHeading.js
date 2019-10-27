@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useLayoutEffect, useMemo, useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { useSpring, animated } from 'react-spring'
 import useDimensions from './useDimensions'
 import calcStroke from "./calcStroke"
@@ -33,7 +33,7 @@ function DilatedHeading({
       }
     })
     setLineData(wordLineData)
-  }, [getBoundingClientRect])
+  }, [getBoundingClientRect, width, height, lineData])
 
   const onMouseMove = useCallback(({ clientX: x, clientY: y }) => {
     if (!lineData.length) return // not ready yet
@@ -80,7 +80,7 @@ function DilatedHeading({
                   return (
                     <animated.tspan
                       key={char + ii}
-                      stroke="#fff"
+                      // stroke="#fff"
                       // stroke={headingWidth > 0 ? '#000' : '#fff'}
                       strokeWidth={xy.interpolate((x, y) => {
                         const lineWidth = lineDataItem.width
@@ -110,102 +110,6 @@ function DilatedHeading({
 
       </svg>
 
-      {/* <svg
-        className="DilatedHeading_svg"
-        // viewBox={`0 0 ${window.innerWidth} 0.01`}
-        // viewBox="-20 0 800 70"
-        ref={ref}
-      >
-      
-        <text
-          className="heading_text"
-          x="10"
-          y="50"
-          strokeLinejoin="round"
-          fill={textColor}
-          stroke={textColor}
-          shapeRendering="geometricprecision"
-        >
-            {characters.map((char, i) => {
-              return (
-                <animated.tspan
-                  
-                  key={char + i}
-                  // stroke={headingWidth > 0 ? '#000' : '#fff'}
-                  strokeWidth={xy.interpolate((x, y) => calcStroke({ x, y, i, spread, maxFat, getBoundingClientRect, line: 0 }, characters))}
-                >
-                  {char}
-                </animated.tspan>
-              )
-            })}
-        </text>
-        
-        <text
-          className="heading_text"
-          x="10"
-          y="100"
-        >
-            {characters2.map((char, i) => {
-              return (
-                <animated.tspan
-                  shapeRendering="geometricprecision"
-                  strokeLinejoin="round"
-                  fill={textColor}
-                  key={char + i}
-                  // stroke={headingWidth > 0 ? '#000' : '#fff'}
-                  stroke={textColor}
-                  strokeWidth={xy.interpolate((x, y) => calcStroke({ x, y, i, spread, maxFat, getBoundingClientRect, line: 1}, characters2))}
-                >
-                  {char}
-                </animated.tspan>
-              )
-            })}
-        </text>
-        <text
-          className="heading_text"
-          x="10"
-          y="150"
-        >
-            {characters3.map((char, i) => {
-              return (
-                <animated.tspan
-                  shapeRendering="geometricprecision"
-                  strokeLinejoin="round"
-                  fill={textColor}
-                  key={char + i}
-                  // stroke={headingWidth > 0 ? '#000' : '#fff'}
-                  stroke={textColor}
-                  strokeWidth={xy.interpolate((x, y) => calcStroke({ x, y, i, spread, maxFat, getBoundingClientRect, line: 2}, characters3))}
-                >
-                  {char}
-                </animated.tspan>
-              )
-            })}
-        </text>
-        
-        <text
-          className="heading_text"
-          x="10"
-          y="200"
-        >
-            {characters4.map((char, i) => {
-              return (
-                <animated.tspan
-                  shapeRendering="geometricprecision"
-                  strokeLinejoin="round"
-                  fill={textColor}
-                  key={char + i}
-                  // stroke={headingWidth > 0 ? '#000' : '#fff'}
-                  stroke={textColor}
-                  strokeWidth={xy.interpolate((x, y) => calcStroke({ x, y, i, spread, maxFat, getBoundingClientRect, line: 2.5}, characters4))}
-                >
-                  {char}
-                </animated.tspan>
-              )
-            })}
-        </text>
-
-      </svg> */}
     </div>
   )
 }

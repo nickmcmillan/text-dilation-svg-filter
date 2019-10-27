@@ -44,24 +44,26 @@ section {
 }
 
 svg {
-  width: 100%;
+  /* width: 100%; */
+}
+
+.heading_text {
+  font-family: 'sg', sans-serif;
+  /* font-size: 35px; */
 }
 
 .DilatedHeading {
-  /* padding: 2rem; */
-  font-family: 'sg', sans-serif;
-  font-size: 35px;
-  width: 53rem;
-
+  max-width: 50rem;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .DilatedHeading_svg {
-  /* width: 100%; */
-  /* background-clip: content-box, padding-box;
-  overflow: visible; */
-  /* border: 1px solid red; */
-  /* height: 7rem; */
-  height: 14rem;
+  width: 100%;
+  border: 1px solid #eee;
+  display: block;
+  font-family: 'sg', sans-serif;
+  height: 13rem;
 }
 
 .mass_big_logo {

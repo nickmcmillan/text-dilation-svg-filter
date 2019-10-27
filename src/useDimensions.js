@@ -1,8 +1,9 @@
-import { useState, useCallback, useLayoutEffect } from 'react'
+import { useRef, useState, useCallback, useLayoutEffect } from 'react'
 
 function useDimensions() {
   const [dimensions, setDimensions] = useState({})
   const [node, setNode] = useState(null)
+  const timeoutId = useRef(null)
 
   const ref = useCallback(node => {
     setNode(node)
@@ -26,7 +27,7 @@ function useDimensions() {
       window.addEventListener('resize', handleResize)
 
       return () => {
-        window.removeEventListener('resize', measure)
+        window.removeEventListener('resize', handleResize)
       }
     }
   }, [node])

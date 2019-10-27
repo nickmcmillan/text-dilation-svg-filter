@@ -7,9 +7,9 @@ const distanceXY = (mouseX, mouseY, startingLeft, startingTop) => {
   return Math.sqrt(Math.pow(startingTop - mouseY, 2) + Math.pow(startingLeft - mouseX, 2)) || 0
 }
 
-function calcStroke({ x, y, i, spread, maxFat, getBoundingClientRect, line }, characters) {
+function calcStroke({ x, y, i, spread, maxFat, width, height, line }, characters) {
 
-  const { width, height, top } = getBoundingClientRect
+  // const { width, height } = getBoundingClientRect
 
   const mappedX = map_range(x, 0, width, 0, characters.length)
   const mappedY = map_range(y, 0, height, 0, 28)

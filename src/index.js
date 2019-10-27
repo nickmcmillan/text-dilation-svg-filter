@@ -1,5 +1,5 @@
 // https://stackoverflow.com/a/32162431/2255980
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 import BigLogo from './BigLogo'
@@ -8,10 +8,15 @@ import DilatedHeading from './DilatedHeading'
 import './styles.css'
 
 function App() {
+  const [containerWidth, setContainerWidth] = useState(690)
 
   return (
     <>
       <section className="dark">
+
+        <input type="range" min={10} max={1000} value={containerWidth} onChange={(e) => setContainerWidth(parseInt(e.target.value, 10))} />
+
+        <p>containerWidth: {containerWidth}</p>
 
         <DilatedHeading
           // className
@@ -24,6 +29,11 @@ function App() {
           spread={10}
           maxFat={20}
           textColor="#fff"
+          containerWidth={containerWidth}
+          style={{
+            fontSize: '2rem',
+            fontFamily: 'sg',
+          }}
         />
       </section>
       

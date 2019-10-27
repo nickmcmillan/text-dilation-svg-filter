@@ -64,6 +64,13 @@ svg {
   display: block;
   font-family: 'sg', sans-serif;
   height: 13rem;
+  font-size: 1rem;
+}
+
+@media (min-width: 800px) {
+  .DilatedHeading_svg {
+    font-size: 2rem;
+  }
 }
 
 .mass_big_logo {

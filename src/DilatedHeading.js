@@ -1,16 +1,16 @@
 import React, { useCallback, useState, useEffect } from 'react'
 import { useSpring, animated } from 'react-spring'
 import useDimensions from './useDimensions'
-import calcStroke from "./calcStroke"
-import calculateLines from "./calculateLines"
-import calculateWordWidths from "./calculateWordWidths"
-import useEventListener from "./useEventListener"
+import calcStroke from './calcStroke'
+import calculateLines from './calculateLines'
+import calculateWordWidths from './calculateWordWidths'
+import useEventListener from './useEventListener'
 
 const config = { mass: 5, tension: 510, friction: 73 }
 const lineHeight = 1.5
 
 function DilatedHeading({
-  style,
+  style = {},
   spread = 8,
   maxFat = 20,
   textColor = '#000',
@@ -18,12 +18,17 @@ function DilatedHeading({
   unloadedWidth = 500
 }) {
 
-  const [lineData, setLineData] = useState([])
-  const [ref, getBoundingClientRect] = useDimensions()
+  const [ref, getBoundingClientRect, refNode] = useDimensions()
   const { width, height, top, left } = getBoundingClientRect
 
+  const [lineData, setLineData] = useState([])
+
   useEffect(() => {
-    const { wordsWithComputedWidth, spaceWidth } = calculateWordWidths(textValue, style)
+    if (!refNode) return
+    const { fontSize, fontFamily } = window.getComputedStyle(refNode)
+    const computedStyle = { fontSize, fontFamily }
+    
+    const { wordsWithComputedWidth, spaceWidth } = calculateWordWidths(textValue, computedStyle)
     const wordsByLines = calculateLines(wordsWithComputedWidth, spaceWidth, width || unloadedWidth)
     const wordLineData = wordsByLines.map(line => {
       return {
@@ -32,7 +37,7 @@ function DilatedHeading({
       }
     })
     setLineData(wordLineData)
-  }, [getBoundingClientRect])
+  }, [getBoundingClientRect, refNode])
 
   const onMouseMove = useCallback(({ clientX: x, clientY: y }) => {
     if (!lineData.length) return // not ready yet
@@ -54,26 +59,29 @@ function DilatedHeading({
       <svg
         ref={ref}
         className="DilatedHeading_svg"
-        width={width}
-        height={400}
+        // width={width}
+        // height={400}
       >
         <text
           dy={`0.71em`}
-          x="10"
-          y="50"
           strokeLinejoin="round"
           fill={textColor}
           stroke={textColor}
-          shapeRendering="geometricprecision"
+          // shapeRendering="geometricprecision"
           width={width}
           style={style}
         >
+          <tspan x={10} y={50} dy={`${-1 * lineHeight}em`}>&nbsp;</tspan>
+
           {lineData.map((lineDataItem, i) => {
 
             const characters = lineDataItem.lines.split('')
+            const widths = lineDataItem
 
             return (
               <tspan x={10} y={50} dy={`${i * lineHeight}em`} key={`${lineDataItem.lines}-${i}`}>
+                
+                <tspan>&nbsp;</tspan>
 
                 {characters.map((char, ii) => {
                   return (
@@ -102,9 +110,14 @@ function DilatedHeading({
                     </animated.tspan>
                   )
                 })}
+
+                <tspan>&nbsp;</tspan>
+
               </tspan>
             )
           })}
+
+          <tspan x={10} y={50} dy={`${lineData.length + 1 * lineHeight}em`}>&nbsp;</tspan>
         </text>
 
       </svg>

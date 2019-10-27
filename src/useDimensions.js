@@ -19,7 +19,7 @@ function useDimensions() {
 
         timeoutId.current = setTimeout(function () {
           setDimensions(node.getBoundingClientRect())
-        })
+        }, 1000)
       }
 
       setDimensions(node.getBoundingClientRect())

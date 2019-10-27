@@ -71,15 +71,16 @@ function DilatedHeading({
         >
           {lineData.map((lineDataItem, i) => {
 
-            const charos = lineDataItem.lines.split('')
+            const characters = lineDataItem.lines.split('')
 
             return (
               <tspan x={10} y={50} dy={`${i * lineHeight}em`} key={`${lineDataItem.lines}-${i}`}>
 
-                {charos.map((char, ii) => {
+                {characters.map((char, ii) => {
                   return (
                     <animated.tspan
                       key={char + ii}
+                      stroke="#fff"
                       // stroke={headingWidth > 0 ? '#000' : '#fff'}
                       strokeWidth={xy.interpolate((x, y) => {
                         const lineWidth = lineDataItem.width
@@ -94,7 +95,7 @@ function DilatedHeading({
                           lineWidth,
                           componentHeight,
                           lineCount,
-                          charos,
+                          characters,
                         })
                       })}
                     >

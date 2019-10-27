@@ -20,7 +20,10 @@ function calculateLines(wordsWithComputedWidth, spaceWidth, lineWidth) {
     return result
   }, [])
 
-  return wordsByLines.map(line => line.words.join(' '))
+  // console.log(wordsByLines)
+  
+  return wordsByLines
+  // return wordsByLines.map(line => line.words.join(' '))
 }
 
 export default calculateLines

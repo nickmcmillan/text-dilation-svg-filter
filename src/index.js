@@ -13,14 +13,13 @@ function App() {
   return (
     <>
       <section className="dark">
+        {/* <input type="range" min={10} max={1000} value={containerWidth} onChange={(e) => setContainerWidth(parseInt(e.target.value, 10))} /> */}
 
-        <input type="range" min={10} max={1000} value={containerWidth} onChange={(e) => setContainerWidth(parseInt(e.target.value, 10))} />
-
-        <p>containerWidth: {containerWidth}</p>
-
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem voluptas aliquid adipisci atque assumenda dolorum cum vel consectetur quasi. Soluta minus sint debitis ipsum excepturi magnam illo necessitatibus praesentium quod!</p>
+        
         <DilatedHeading
           // className
-          // make this an array
+          // textValue="We"
           textValue="We embrace the freedom to be creative, we encourage our employees to think differently, to think critically and to solve a problem in a new way."
           innerText="We embrace the freedom to be"
           innerText2="creative, we encourage our employees"
@@ -35,6 +34,9 @@ function App() {
             fontFamily: 'sg',
           }}
         />
+
+       
+
       </section>
       
       <section className="light">

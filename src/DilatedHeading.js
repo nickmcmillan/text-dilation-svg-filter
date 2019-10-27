@@ -7,15 +7,18 @@ function map_range(value, low1, high1, low2, high2) {
   return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
 }
 
-const distanceXY = (mouseX, mouseY, startingLeft, startingTop) => {
-  return Math.sqrt(Math.pow(startingTop - mouseY, 2 ) + Math.pow(startingLeft - mouseX, 2)) || 0
-}
+function DilatedHeading({
+  style,
+  spread = 8,
+  maxFat = 20,
+  textColor = '#000',
+  textValue,
+  unloadedWidth = 500
+}) {
 
-// const distanceX = (mouseX, startingLeft) => {
-//   return Math.pow(startingLeft - mouseX, 2)
-// }
-
-const config = { mass: 5, tension: 510, friction: 73 }
+  const [lineData, setLineData] = useState([])
+  const [ref, getBoundingClientRect] = useDimensions()
+  const { width, height, top, left } = getBoundingClientRect
 
 function calcStroke({ x, y, i, spread, maxFat, getBoundingClientRect, line }, characters) {
   // console.log(y)
@@ -36,14 +39,24 @@ function calcStroke({ x, y, i, spread, maxFat, getBoundingClientRect, line }, ch
   return rounded
 }
 
-function DilatedHeading({ innerText, innerText2, innerText3, innerText4, spread = 8, maxFat = 20, textColor = '#000' }) {
+  useEffect(() => {
+    const { wordsWithComputedWidth, spaceWidth } = calculateWordWidths(textValue, style)
+    const wordsByLines = calculateLines(wordsWithComputedWidth, spaceWidth, width || unloadedWidth)
+    const wordLineData = wordsByLines.map(line => {
+      return {
+        lines: line.words.join(' '),
+        width: line.width,
+      }
+    })
+    setLineData(wordLineData)
+  }, [getBoundingClientRect])
 
-  const characters = innerText.split('')
-  const characters2 = innerText2.split('')
-  const characters3 = innerText3.split('')
-  const characters4 = innerText4.split('')
-
-  const [textRef, getBoundingClientRect] = useDimensions()
+  const onMouseMove = useCallback(({ clientX: x, clientY: y }) => {
+    if (!lineData.length) return // not ready yet
+    const innerX = x - left
+    const innerY = y - top
+    set({ xy: [innerX, innerY] })
+  }, [getBoundingClientRect])
 
   const [{ xy }, set] = useSpring(() => ({
     // from
@@ -68,15 +81,20 @@ function DilatedHeading({ innerText, innerText2, innerText3, innerText4, spread 
 
       <svg
         className="DilatedHeading_svg"
-        // viewBox={`0 0 ${window.innerWidth} 0.01`}
-        // viewBox="-20 0 800 70"
-        ref={textRef}
+        // width={width}
+        // height={height}
       >
       
         <text
           className="heading_text"
           x="10"
           y="50"
+          strokeLinejoin="round"
+          fill={textColor}
+          stroke={textColor}
+          shapeRendering="geometricprecision"
+          // width={width}
+          style={style}
         >
             {characters.map((char, i) => {
               return (

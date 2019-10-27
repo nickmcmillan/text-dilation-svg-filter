@@ -10,13 +10,20 @@ function useDimensions() {
 
   useLayoutEffect(() => {
     if (node) {
-      const measure = () =>
-        window.requestAnimationFrame(() =>
-          setDimensions(node.getBoundingClientRect())
-        )
-      measure()
 
-      window.addEventListener('resize', measure)
+      function handleResize() {
+        if (timeoutId.current) {
+          clearTimeout(timeoutId.current)
+        }
+
+        timeoutId.current = setTimeout(function () {
+          setDimensions(node.getBoundingClientRect())
+        })
+      }
+
+      setDimensions(node.getBoundingClientRect())
+
+      window.addEventListener('resize', handleResize)
 
       return () => {
         window.removeEventListener('resize', measure)

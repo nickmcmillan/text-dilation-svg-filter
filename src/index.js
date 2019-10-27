@@ -16,6 +16,7 @@ function App() {
         <DilatedHeading
           // className
           // make this an array
+          textValue="We embrace the freedom to be creative, we encourage our employees to think differently, to think critically and to solve a problem in a new way."
           innerText="We embrace the freedom to be"
           innerText2="creative, we encourage our employees"
           innerText3="to think differently, to think critically"
@@ -28,7 +29,7 @@ function App() {
       
       <section className="light">
 
-        <DilatedHeading
+        {/* <DilatedHeading
           // className
           // make this an array
           innerText="We embrace the freedom to be"
@@ -38,7 +39,7 @@ function App() {
           spread={10}
           maxFat={20}
           textColor="#000"
-        />
+        /> */}
       </section>
       
         {/* <BigLogo /> */}

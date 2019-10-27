@@ -1,42 +1,28 @@
 import React, { useCallback, useEffect } from 'react'
 import { useSpring, animated } from 'react-spring'
 import useDimensions from './useDimensions'
-// import useMousePosition from "./useMousePosition"
+import calcStroke from "./calcStroke"
+import calculateLines from "./calculateLines"
+import calculateWordWidths from "./calculateWordWidths"
 
-function map_range(value, low1, high1, low2, high2) {
-  return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
-}
-
-const distanceXY = (mouseX, mouseY, startingLeft, startingTop) => {
-  return Math.sqrt(Math.pow(startingTop - mouseY, 2 ) + Math.pow(startingLeft - mouseX, 2)) || 0
-}
-
-// const distanceX = (mouseX, startingLeft) => {
-//   return Math.pow(startingLeft - mouseX, 2)
-// }
 
 const config = { mass: 5, tension: 510, friction: 73 }
 
-function calcStroke({ x, y, i, spread, maxFat, getBoundingClientRect, line }, characters) {
-  // console.log(y)
+function DilatedHeading({
+  innerText,
+  innerText2,
+  innerText3,
+  innerText4,
+  spread = 8,
+  maxFat = 20,
+  textColor = '#000',
+  textValue,
+}) {
 
-  const { width, height, top } = getBoundingClientRect
-  // console.log(y, top)
-  
-  const mappedX = map_range(x, 0, width, 0, characters.length)
-  const mappedY = map_range(y, 0, height, 0, 28)
-  
-  const fromMouse = distanceXY(mappedX, mappedY, i, line * 10)
-  // console.log(fromMouse)
-  
-  // const fromMouse = distanceX(x, i)
-  const mapMouse = map_range(fromMouse, 0, spread, maxFat, 0)
-  const clamp = Math.min(Math.max(0, mapMouse), maxFat)
-  const rounded = Math.round(clamp * 100 + Number.EPSILON) / 100
-  return rounded
-}
+  const { wordsWithComputedWidth, spaceWidth } = calculateWordWidths(textValue, {});
+  const lines = calculateLines(wordsWithComputedWidth, spaceWidth, 250);
 
-function DilatedHeading({ innerText, innerText2, innerText3, innerText4, spread = 8, maxFat = 20, textColor = '#000' }) {
+  const lineHeight = 1.5
 
   const characters = innerText.split('')
   const characters2 = innerText2.split('')
@@ -45,17 +31,19 @@ function DilatedHeading({ innerText, innerText2, innerText3, innerText4, spread 
 
   const [textRef, getBoundingClientRect] = useDimensions()
 
-  const [{ xy }, set] = useSpring(() => ({
-    // from
-    xy: [10, 300],
-    config,
-  }))
 
   const onMouseMove = useCallback(({ clientX: x, clientY: y }) => {
     const innerX = x - getBoundingClientRect.x
     const innerY = y - getBoundingClientRect.y
     set({ xy: [innerX, innerY] })
   }, [getBoundingClientRect, set, characters])
+
+
+  const [{ xy }, set] = useSpring(() => ({
+    // from
+    xy: [10, 300],
+    config,
+  }))
 
   useEffect(() => {
     window.addEventListener("mousemove", onMouseMove)
@@ -64,7 +52,44 @@ function DilatedHeading({ innerText, innerText2, innerText3, innerText4, spread 
   }, [getBoundingClientRect])
 
   return (
-    <div className="DilatedHeading" >
+    <div className="DilatedHeading">
+
+      <svg
+        className="DilatedHeading_svg"
+      >
+        <text
+          dy={`0.71em`}
+          className="heading_text"
+          x="10"
+          y="50"
+          strokeLinejoin="round"
+          fill={textColor}
+          stroke={textColor}
+          shapeRendering="geometricprecision"
+          style={{
+            width: window.innerWidth
+          }}
+        >
+          {lines.map((word, index) => (
+            <tspan x={10} y={50} dy={`${index * lineHeight}em`} key={`${word}-${index}`}>
+              {word}
+            </tspan>
+          ))}
+        </text>
+        {/* <Text
+          width={250}
+          className="heading_text"
+          x="10"
+          y="50"
+          strokeLinejoin="round"
+          fill={textColor}
+          stroke={textColor}
+          shapeRendering="geometricprecision"
+        >
+          We embrace the freedom to be creative, we encourage our employees to think differently, to think critically and to solve a problem in a new way.
+        </Text> */}
+
+      </svg>
 
       <svg
         className="DilatedHeading_svg"
@@ -77,16 +102,17 @@ function DilatedHeading({ innerText, innerText2, innerText3, innerText4, spread 
           className="heading_text"
           x="10"
           y="50"
+          strokeLinejoin="round"
+          fill={textColor}
+          stroke={textColor}
+          shapeRendering="geometricprecision"
         >
             {characters.map((char, i) => {
               return (
                 <animated.tspan
-                  shapeRendering="geometricprecision"
-                  strokeLinejoin="round"
-                  fill={textColor}
+                  
                   key={char + i}
                   // stroke={headingWidth > 0 ? '#000' : '#fff'}
-                  stroke={textColor}
                   strokeWidth={xy.interpolate((x, y) => calcStroke({ x, y, i, spread, maxFat, getBoundingClientRect, line: 0 }, characters))}
                 >
                   {char}

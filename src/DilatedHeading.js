@@ -15,7 +15,6 @@ function DilatedHeading({
   maxFat = 20,
   textColor = '#000',
   textValue,
-  unloadedWidth = 500
 }) {
 
   const [ref, getBoundingClientRect, refNode] = useDimensions()
@@ -24,12 +23,12 @@ function DilatedHeading({
   const [lineData, setLineData] = useState([])
 
   useEffect(() => {
-    if (!refNode) return
+    if (!width) return
     const { fontSize, fontFamily } = window.getComputedStyle(refNode)
     const computedStyle = { fontSize, fontFamily }
     
     const { wordsWithComputedWidth, spaceWidth } = calculateWordWidths(textValue, computedStyle)
-    const wordsByLines = calculateLines(wordsWithComputedWidth, spaceWidth, width || unloadedWidth)
+    const wordsByLines = calculateLines(wordsWithComputedWidth, spaceWidth, width)
     const wordLineData = wordsByLines.map(line => {
       return {
         lines: line.words.join(' '),
@@ -37,10 +36,10 @@ function DilatedHeading({
       }
     })
     setLineData(wordLineData)
-  }, [getBoundingClientRect, refNode])
+  }, [getBoundingClientRect, width, refNode])
 
   const onMouseMove = useCallback(({ clientX: x, clientY: y }) => {
-    if (!lineData.length) return // not ready yet
+    if (!width) return // not ready yet
     const innerX = x - left
     const innerY = y - top
     set({ xy: [innerX, innerY] })

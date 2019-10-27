@@ -66,7 +66,8 @@ function DilatedHeading({
           strokeLinejoin="round"
           fill={textColor}
           stroke={textColor}
-          // shapeRendering="geometricprecision"
+          // shapeRendering="geometricPrecision"
+          shapeRendering="optimizeSpeed"
           width={width}
           style={style}
         >

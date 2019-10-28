@@ -1,12 +1,12 @@
 // https://codepen.io/techniq/pen/rLXwJJ
-function calculateWordWidths(children, style) {
+function calculateWordWidths(children, computedStyle) {
 
   // Calculate length of each word to be used to determine number of words per line
   const words = children.split(/\s+/)
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
   const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
 
-  Object.assign(text.style, style)
+  Object.assign(text.style, computedStyle)
   
   svg.appendChild(text)
   document.body.appendChild(svg)

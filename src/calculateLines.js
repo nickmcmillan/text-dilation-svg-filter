@@ -1,4 +1,3 @@
-
 function calculateLines(wordsWithComputedWidth, spaceWidth, lineWidth) {
   const wordsByLines = wordsWithComputedWidth.reduce((result, { word, width }) => {
     const lastLine = result[result.length - 1] || { words: [], width: 0 }
@@ -20,7 +19,6 @@ function calculateLines(wordsWithComputedWidth, spaceWidth, lineWidth) {
     return result
   }, [])
 
-  // console.log(wordsByLines)
   
   return wordsByLines
   // return wordsByLines.map(line => line.words.join(' '))

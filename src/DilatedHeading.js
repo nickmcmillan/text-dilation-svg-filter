@@ -91,7 +91,7 @@ function DilatedHeading({
                       // stroke={headingWidth > 0 ? '#000' : '#fff'}
                       strokeWidth={xy.interpolate((x, y) => {
                         const lineWidth = lineDataItem.width
-                        const lineCount = i
+                        const lineNumber = i
                         const componentHeight = height
 
                         return calcStroke({
@@ -101,7 +101,7 @@ function DilatedHeading({
                           maxFat,
                           lineWidth,
                           componentHeight,
-                          lineCount,
+                          lineNumber,
                           characters,
                         })
                       })}

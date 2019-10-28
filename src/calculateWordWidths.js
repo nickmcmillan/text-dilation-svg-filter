@@ -13,7 +13,7 @@ function calculateWordWidths(children, computedStyle) {
 
   const wordsWithComputedWidth = words.map(word => {
     text.textContent = word
-    return { word, width: text.getComputedTextLength() + 1.5 }
+    return { word, width: text.getComputedTextLength() + 5 } // extra space because we're adding extra &nbsp; tspans
   })
   
   text.textContent = '\u00A0' // Unicode space

@@ -10,7 +10,7 @@ function distanceXY(mouseX, mouseY, startingLeft, startingTop) {
 function calcStroke({
   x,
   y,
-  ii,
+  characterIndex,
   spread,
   maxFat,
   lineWidth,
@@ -22,7 +22,7 @@ function calcStroke({
   const mappedX = map_range(x, 0, lineWidth, 0, characters.length)
   const mappedY = map_range(y, 0, componentHeight, 0, 20)
   
-  const fromMouse = distanceXY(mappedX, mappedY, ii, lineNumber * 5)
+  const fromMouse = distanceXY(mappedX, mappedY, characterIndex, lineNumber * 5)
   
   const mapMouse = map_range(fromMouse, 0, spread, maxFat, 0)
   const clamp = Math.min(Math.max(0, mapMouse), maxFat)

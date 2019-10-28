@@ -73,43 +73,39 @@ function DilatedHeading({
         >
           <tspan x={10} y={50} dy={`${-1 * lineHeight}em`}>&nbsp;</tspan>
 
-          {lineData.map((lineDataItem, i) => {
+          {lineData.map((lineDataItem, lineNumber) => {
 
             const characters = lineDataItem.lines.split('')
-            const widths = lineDataItem
 
             return (
-              <tspan x={10} y={50} dy={`${i * lineHeight}em`} key={`${lineDataItem.lines}-${i}`}>
+              <tspan x={10} y={50} dy={`${lineNumber * lineHeight}em`} key={lineDataItem.lines}>
                 
                 <tspan>&nbsp;</tspan>
 
-                {characters.map((char, ii) => {
-                  return (
-                    <animated.tspan
-                      key={char + ii}
-                      // stroke="#fff"
-                      // stroke={headingWidth > 0 ? '#000' : '#fff'}
-                      strokeWidth={xy.interpolate((x, y) => {
-                        const lineWidth = lineDataItem.width
-                        const lineNumber = i
-                        const componentHeight = height
+                {characters.map((char, characterIndex) => (
+                  <animated.tspan
+                    key={`${lineDataItem.lines}-${characterIndex}-${char}`}
+                    // stroke="#fff"
+                    // stroke={headingWidth > 0 ? '#000' : '#fff'}
+                    strokeWidth={xy.interpolate((x, y) => {
+                      const lineWidth = lineDataItem.width
+                      const componentHeight = height
 
-                        return calcStroke({
-                          x, y,
-                          ii,
-                          spread,
-                          maxFat,
-                          lineWidth,
-                          componentHeight,
-                          lineNumber,
-                          characters,
-                        })
-                      })}
-                    >
-                      {char}
-                    </animated.tspan>
-                  )
-                })}
+                      return calcStroke({
+                        x, y,
+                        characterIndex,
+                        spread,
+                        maxFat,
+                        lineWidth,
+                        componentHeight,
+                        lineNumber,
+                        characters,
+                      })
+                    })}
+                  >
+                    {char}
+                  </animated.tspan>
+                ))}
 
                 <tspan>&nbsp;</tspan>
 

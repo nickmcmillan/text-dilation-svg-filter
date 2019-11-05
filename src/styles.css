@@ -56,6 +56,9 @@ svg {
   max-width: 50rem;
   margin: 0 auto;
   overflow: hidden;
+  position: relative;
+  height: 30rem;
+
 }
 
 .DilatedHeading_svg {
@@ -65,6 +68,9 @@ svg {
   font-family: 'sg', sans-serif;
   height: 13rem;
   font-size: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 @media (min-width: 800px) {
@@ -96,6 +102,14 @@ svg {
   background-clip: content-box, padding-box;
 } */
 
+.img {
+  clip-path: url(#clipPath)
+}
+
+.text {
+  fill: url(#pattern);
+}
+
 @media (min-width: 680px) {
   /* .heading_text {
     font-size: 3rem;
@@ -105,4 +119,5 @@ svg {
 input[type='range'] {
   width: 80%;
 }
+
 

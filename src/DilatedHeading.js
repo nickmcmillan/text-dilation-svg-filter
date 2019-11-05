@@ -58,65 +58,89 @@ function DilatedHeading({
       <svg
         ref={ref}
         className="DilatedHeading_svg"
+        
         // width={width}
         // height={400}
       >
-        <text
-          dy={`0.71em`}
-          strokeLinejoin="round"
-          fill={textColor}
-          stroke={textColor}
-          // shapeRendering="geometricPrecision"
-          shapeRendering="optimizeSpeed"
-          width={width}
-          style={style}
-        >
-          <tspan x={10} y={50} dy={`${-1 * lineHeight}em`}>&nbsp;</tspan>
+        <defs>
+          <pattern
+            id="pattern"
+            patternUnits="userSpaceOnUse"
+            width="900"
+            height="700"
+            viewBox="0 0 900 700"
+          >
+            <image xlinkHref="https://picsum.photos/id/6/900/700" width="900" height="700" />
+          </pattern>
+        </defs>
 
-          {lineData.map((lineDataItem, lineNumber) => {
+        
+        {/* <clipPath id="clipPath"> */}
 
-            const characters = lineDataItem.lines.split('')
+          
+          <text
+            dy={`0.71em`}
+            dx="-1em"
+            strokeLinejoin="round"
+            fill={textColor}
+            // fill="url(#pattern)"
+            // stroke={textColor}
+            // shapeRendering="geometricPrecision"
+            shapeRendering="optimizeSpeed"
+            width={width}
+            style={style}
+            stroke="url(#pattern)"
+          >
+            <tspan x={0} y={50} dy={`${-1 * lineHeight}em`}>&nbsp;</tspan>
 
-            return (
-              <tspan x={10} y={50} dy={`${lineNumber * lineHeight}em`} key={lineDataItem.lines}>
-                
-                <tspan>&nbsp;</tspan>
+            {lineData.map((lineDataItem, lineNumber) => {
 
-                {characters.map((char, characterIndex) => (
-                  <animated.tspan
-                    key={`${lineDataItem.lines}-${characterIndex}-${char}`}
-                    // stroke="#fff"
-                    // stroke={headingWidth > 0 ? '#000' : '#fff'}
-                    strokeWidth={xy.interpolate((x, y) => {
-                      const lineWidth = lineDataItem.width
-                      const componentHeight = height
+              const characters = lineDataItem.lines.split('')
 
-                      return calcStroke({
-                        x, y,
-                        characterIndex,
-                        spread,
-                        maxFat,
-                        lineWidth,
-                        componentHeight,
-                        lineNumber,
-                        characters,
-                      })
-                    })}
-                  >
-                    {char}
-                  </animated.tspan>
-                ))}
+              return (
+                <tspan x={10} y={50} dy={`${lineNumber * lineHeight}em`} key={lineDataItem.lines}>
+                  
+                  <tspan>&nbsp;</tspan>
 
-                <tspan>&nbsp;</tspan>
+                  {characters.map((char, characterIndex) => (
+                    <animated.tspan
+                      key={`${lineDataItem.lines}-${characterIndex}-${char}`}
+                      // stroke="#fff"
+                      // stroke={headingWidth > 0 ? '#000' : '#fff'}
+                      strokeWidth={xy.interpolate((x, y) => {
+                        const lineWidth = lineDataItem.width
+                        const componentHeight = height
 
-              </tspan>
-            )
-          })}
+                        return calcStroke({
+                          x, y,
+                          characterIndex,
+                          spread,
+                          maxFat,
+                          lineWidth,
+                          componentHeight,
+                          lineNumber,
+                          characters,
+                        })
+                      })}
+                    >
+                      {char}
+                    </animated.tspan>
+                  ))}
 
-          <tspan x={10} y={50} dy={`${lineData.length + 1 * lineHeight}em`}>&nbsp;</tspan>
-        </text>
+                  <tspan>&nbsp;</tspan>
+                  <tspan>&nbsp;</tspan>
+
+                </tspan>
+              )
+            })}
+
+            <tspan x={10} y={50} dy={`${lineData.length + 1 * lineHeight}em`}>&nbsp;</tspan>
+          </text>
+        {/* </clipPath> */}
 
       </svg>
+
+      {/* <img src="https://picsum.photos/id/6/900/700" alt="" className="img" /> */}
 
     </div>
   )

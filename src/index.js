@@ -11,20 +11,20 @@ function App() {
 
   return (
     <>
-      <section className="dark">
+      {/* <section className="dark">
         <DilatedHeading
           textValue="We embrace the freedom to be creative, we encourage our employees to think differently, to think critically and to solve a problem in a new way."
           spread={10}
           maxFat={20}
           textColor="#fff"
         />
-      </section>
+      </section> */}
       
       <section className="light">
         <DilatedHeading
           textValue="We embrace the freedom to be creative, we encourage our employees to think differently, to think critically and to solve a problem in a new way."
-          spread={10}
-          maxFat={20}
+          spread={7}
+          maxFat={80}
           textColor="#000"
         />
       </section>

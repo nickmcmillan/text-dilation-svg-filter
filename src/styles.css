@@ -7,6 +7,7 @@
 html {
   box-sizing: border-box;
 }
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
@@ -15,11 +16,6 @@ html {
 body {
   margin: 0;
   color: #fff;
-}
-
-section {
-  /* padding-bottom: 3rem; */
-  /* margin-bottom: 3rem; */
 }
 
 .dark {
@@ -52,13 +48,9 @@ svg {
   /* font-size: 35px; */
 }
 
-.DilatedHeading {
+.outer {
   max-width: 50rem;
   margin: 0 auto;
-  overflow: hidden;
-  position: relative;
-  height: 30rem;
-
 }
 
 .DilatedHeading_svg {
@@ -68,9 +60,6 @@ svg {
   font-family: 'sg', sans-serif;
   height: 13rem;
   font-size: 1rem;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
 @media (min-width: 800px) {
@@ -78,46 +67,3 @@ svg {
     font-size: 2rem;
   }
 }
-
-.mass_big_logo {
-  font-size: 20rem;
-  /* transition: filter 100ms linear; */
-  font-family: 'sg', sans-serif;
-  /* will-change: filter, stroke-width; */
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-}
-
-/* tspan {
-  will-change: stroke-width;
-  overflow: visible;
-  background-clip: content-box, padding-box;
-} */
-
-/* .heading_text {
-  will-change: stroke-width;
-  overflow: visible;
-  background-clip: content-box, padding-box;
-} */
-
-.img {
-  clip-path: url(#clipPath)
-}
-
-.text {
-  fill: url(#pattern);
-}
-
-@media (min-width: 680px) {
-  /* .heading_text {
-    font-size: 3rem;
-  } */
-}
-
-input[type='range'] {
-  width: 80%;
-}
-
-

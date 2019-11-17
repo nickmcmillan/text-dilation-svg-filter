@@ -23,8 +23,8 @@ function App() {
       <section className="light">
         <DilatedHeading
           textValue="We embrace the freedom to be creative, we encourage our employees to think differently, to think critically and to solve a problem in a new way."
-          spread={7}
-          maxFat={80}
+          spread={8}
+          maxFat={30}
           textColor="#000"
         />
       </section>

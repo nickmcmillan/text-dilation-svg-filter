@@ -18,6 +18,10 @@ body {
   color: #fff;
 }
 
+section {
+  padding: 2rem 0;
+}
+
 .dark {
   background-color: #000;
 }
@@ -46,15 +50,18 @@ body {
 
 .DilatedHeading_svg {
   width: 100%;
-  border: 1px solid #eee;
+  /* border: 1px solid #eee; */
   display: block;
-  font-family: 'sg', sans-serif;
-  height: 13rem;
+  font-family: 'Merriweather', serif;
+
+
   font-size: 1rem;
+  /* height: 16rem; */
+  overflow: visible;
 }
 
 @media (min-width: 800px) {
   .DilatedHeading_svg {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 }

@@ -3,7 +3,6 @@ const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
 const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
 
 function calculateWordWidths(textString, computedStyle) {
-
   // Calculate length of each word to be used to determine number of words per line
   const words = textString.split(/\s+/)
 
@@ -14,7 +13,8 @@ function calculateWordWidths(textString, computedStyle) {
 
   const wordsWithComputedWidth = words.map(word => {
     text.textContent = word
-    return { word, width: text.getComputedTextLength() + 5 } // more space because we're adding extra &nbsp; tspans
+    const width = text.getComputedTextLength() + 5 // more space because we're adding extra &nbsp; tspans
+    return { word, width }
   })
   
   text.textContent = '\u00A0' // Unicode space

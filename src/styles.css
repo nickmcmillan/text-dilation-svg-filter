@@ -39,15 +39,6 @@ body {
   position: relative;
 }
 
-svg {
-  /* width: 100%; */
-}
-
-.heading_text {
-  font-family: 'sg', sans-serif;
-  /* font-size: 35px; */
-}
-
 .outer {
   max-width: 50rem;
   margin: 0 auto;

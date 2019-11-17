@@ -1,13 +1,12 @@
-import React, { useRef, useLayoutEffect, useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { useSpring, animated } from 'react-spring'
-// import useMeasure from 'react-use-measure'
-// import mergeRefs from 'react-merge-refs'
-import useDimensions from './useDimensions'
 
-import calcStroke from './calcStroke'
-import calculateLines from './calculateLines'
-import calculateWordWidths from './calculateWordWidths'
-import useEventListener from './useEventListener'
+import calcStroke from './utils/calcStroke'
+import calculateLines from './utils/calcLines'
+import calculateWordWidths from './utils/calcWordWidths'
+
+import useDimensions from './hooks/useDimensions'
+import useEventListener from './hooks/useEventListener'
 
 
 const config = { mass: 5, tension: 510, friction: 73 }
@@ -22,15 +21,13 @@ function DilatedHeading({
 }) {
 
   const [lineData, setLineData] = useState([])
+  const [isFontFaceLoaded, setIsFontFaceLoaded] = useState(false)
 
   const [ref, getBoundingClientRect, refNode] = useDimensions()
   const { width, height, top, left } = getBoundingClientRect
-  // console.log(bounds)
-
-
-  useLayoutEffect(() => {
+  
+  useEffect(() => {
     if (!refNode) return
-
 
     const { fontSize, fontFamily } = window.getComputedStyle(refNode)
     const computedStyle = { fontSize, fontFamily }
@@ -46,10 +43,18 @@ function DilatedHeading({
     })
 
     setLineData(wordLineData)
-  }, [getBoundingClientRect, width, refNode])
+  }, [width, refNode, isFontFaceLoaded])
+
+  // set state when all custom fontfaces are loaded
+  useEffect(() => {
+    // https://stackoverflow.com/a/32292880/2255980
+    document.fonts.ready.then(function () {
+      setIsFontFaceLoaded(true)
+    })
+  }, [])
 
   const onMouseMove = useCallback(({ clientX: x, clientY: y }) => {
-    // if (!refNode) return // not ready yet
+    if (!refNode) return // not ready yet
     const innerX = x - left
     const innerY = y - top
     set({ xy: [innerX, innerY] })

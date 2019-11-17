@@ -1,33 +1,42 @@
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useRef, useLayoutEffect, useCallback, useState, useEffect } from 'react'
 import { useSpring, animated } from 'react-spring'
+// import useMeasure from 'react-use-measure'
+// import mergeRefs from 'react-merge-refs'
 import useDimensions from './useDimensions'
+
 import calcStroke from './calcStroke'
 import calculateLines from './calculateLines'
 import calculateWordWidths from './calculateWordWidths'
 import useEventListener from './useEventListener'
 
+
 const config = { mass: 5, tension: 510, friction: 73 }
 const lineHeight = 1.5
 
 function DilatedHeading({
-  style = {},
+  // style = {},
   spread = 8,
   maxFat = 20,
   textColor = '#000',
   textValue,
 }) {
 
-  const [ref, getBoundingClientRect, refNode] = useDimensions()
-  const { width, height, top, left } = getBoundingClientRect
-
   const [lineData, setLineData] = useState([])
 
-  useEffect(() => {
-    if (!width) return
+  const [ref, getBoundingClientRect, refNode] = useDimensions()
+  const { width, height, top, left } = getBoundingClientRect
+  // console.log(bounds)
+
+
+  useLayoutEffect(() => {
+    if (!refNode) return
+
+
     const { fontSize, fontFamily } = window.getComputedStyle(refNode)
     const computedStyle = { fontSize, fontFamily }
     
     const { wordsWithComputedWidth, spaceWidth } = calculateWordWidths(textValue, computedStyle)
+    
     const wordsByLines = calculateLines(wordsWithComputedWidth, spaceWidth, width)
     const wordLineData = wordsByLines.map(line => {
       return {
@@ -35,15 +44,16 @@ function DilatedHeading({
         width: line.width,
       }
     })
+
     setLineData(wordLineData)
   }, [getBoundingClientRect, width, refNode])
 
   const onMouseMove = useCallback(({ clientX: x, clientY: y }) => {
-    if (!width) return // not ready yet
+    // if (!refNode) return // not ready yet
     const innerX = x - left
     const innerY = y - top
     set({ xy: [innerX, innerY] })
-  }, [getBoundingClientRect])
+  }, [width, refNode])
 
   const [{ xy }, set] = useSpring(() => ({
     // from
@@ -54,39 +64,35 @@ function DilatedHeading({
   useEventListener('mousemove', onMouseMove)
 
   return (
-    <div className="DilatedHeading">
+    <div className="outer">
       <svg
         ref={ref}
         className="DilatedHeading_svg"
-        // width={width}
-        // height={400}
       >
         <text
-          dy={`0.71em`}
           strokeLinejoin="round"
           fill={textColor}
           stroke={textColor}
-          // shapeRendering="geometricPrecision"
           shapeRendering="optimizeSpeed"
           width={width}
-          style={style}
+          // style={style}
         >
-          <tspan x={10} y={50} dy={`${-1 * lineHeight}em`}>&nbsp;</tspan>
+          {/* without empty tspans it gets super glitchy around the edges */}
+          {/* so tspans are added above/below, as well as left/right of the text */}
+          <tspan dy={`${-1 * lineHeight}em`}>&nbsp;</tspan>
 
-          {lineData.map((lineDataItem, lineNumber) => {
+          {lineData.length && lineData.map((lineDataItem, lineNumber) => {
 
             const characters = lineDataItem.lines.split('')
 
             return (
-              <tspan x={10} y={50} dy={`${lineNumber * lineHeight}em`} key={lineDataItem.lines}>
-                
+              <tspan x={10} y={50} dy={`${lineNumber * lineHeight}em`} key={`${lineDataItem.lines}-${lineNumber}`}>
+
                 <tspan>&nbsp;</tspan>
 
                 {characters.map((char, characterIndex) => (
                   <animated.tspan
                     key={`${lineDataItem.lines}-${characterIndex}-${char}`}
-                    // stroke="#fff"
-                    // stroke={headingWidth > 0 ? '#000' : '#fff'}
                     strokeWidth={xy.interpolate((x, y) => {
                       const lineWidth = lineDataItem.width
                       const componentHeight = height
@@ -117,7 +123,6 @@ function DilatedHeading({
         </text>
 
       </svg>
-
     </div>
   )
 }

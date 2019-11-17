@@ -22,8 +22,8 @@ function App() {
       <section className="light">
         <DilatedHeading
           textValue="The Everything bagel was warm enough but I wouldn’t say it was hot. I would have liked a bit more bite. But it was incredibly fresh and gives a good sense of what the texture of a real untoasted New York bagel should be."
-          spread={8}
-          maxFat={30}
+          spread={15}
+          maxFat={10}
           textColor="#000"
         />
       </section>

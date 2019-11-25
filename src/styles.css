@@ -16,7 +16,7 @@ html {
 body {
   margin: 0;
   color: #fff;
-  padding: 4rem 0;
+  /* padding: 4rem 0; */
 }
 
 section {
@@ -49,7 +49,7 @@ section {
   margin: 0 auto;
 }
 
-.DilatedHeading_svg {
+.Paragraph_svg {
   width: 100%;
   /* border: 1px solid #eee; */
   display: block;
@@ -58,11 +58,11 @@ section {
 
   font-size: 1rem;
   /* height: 16rem; */
-  overflow: visible;
+  /* overflow: visible; */
 }
 
 @media (min-width: 800px) {
-  .DilatedHeading_svg {
+  .Paragraph_svg {
     font-size: 1.8rem;
   }
 }

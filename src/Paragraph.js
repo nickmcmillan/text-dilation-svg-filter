@@ -12,7 +12,7 @@ import useEventListener from './hooks/useEventListener'
 const config = { mass: 5, tension: 510, friction: 73 }
 const lineHeight = 1.5
 
-function DilatedHeading({
+function Paragraph({
   // style = {},
   spread = 8,
   maxFat = 20,
@@ -25,6 +25,8 @@ function DilatedHeading({
 
   const [ref, getBoundingClientRect, refNode] = useDimensions()
   const { width, height, top, left } = getBoundingClientRect
+  console.log(height)
+  
   
   useEffect(() => {
     if (!refNode) return
@@ -68,68 +70,71 @@ function DilatedHeading({
 
   useEventListener('mousemove', onMouseMove)
 
+  // const height
+
   return (
-    <div className="outer">
-      <svg
-        ref={ref}
-        className="DilatedHeading_svg"
+  
+    <svg
+      ref={ref}
+      className="Paragraph_svg"
+      viewBox={`0 -${lineHeight * 20} ${width || 0} ${height - 50 || 0}`}
+    >
+      <text
+        strokeLinejoin="round"
+        fill={textColor}
+        stroke={textColor}
+        shapeRendering="optimizeSpeed"
+        width={`${width}px`}
+        // style={style}
       >
-        <text
-          strokeLinejoin="round"
-          fill={textColor}
-          stroke={textColor}
-          shapeRendering="optimizeSpeed"
-          width={width}
-          // style={style}
-        >
-          {/* without empty tspans it gets super glitchy around the edges */}
-          {/* so tspans are added above/below, as well as left/right of the text */}
-          <tspan dy={`${-1 * lineHeight}em`}>&nbsp;</tspan>
+        {/* without empty tspans it gets super glitchy around the edges */}
+        {/* so tspans are added above/below, as well as left/right of the text */}
+        <tspan x={10} y={0}  dy={`${-1 * lineHeight}em`}>&nbsp;</tspan>
 
-          {lineData.length && lineData.map((lineDataItem, lineNumber) => {
+        {lineData.length && lineData.map((lineDataItem, lineNumber) => {
 
-            const characters = lineDataItem.lines.split('')
+          const characters = lineDataItem.lines.split('')
 
-            return (
-              <tspan x={10} y={50} dy={`${lineNumber * lineHeight}em`} key={`${lineDataItem.lines}-${lineNumber}`}>
+          return (
+            <tspan x={10} y={0} dy={`${lineNumber * lineHeight}em`} key={`${lineDataItem.lines}-${lineNumber}`}>
 
-                <tspan>&nbsp;</tspan>
+              <tspan>&nbsp;</tspan>
 
-                {characters.map((char, characterIndex) => (
-                  <animated.tspan
-                    key={`${lineDataItem.lines}-${characterIndex}-${char}`}
-                    strokeWidth={xy.interpolate((x, y) => {
-                      const lineWidth = lineDataItem.width
-                      const componentHeight = height
+              {characters.map((char, characterIndex) => (
+                <animated.tspan
+                  key={`${lineDataItem.lines}-${characterIndex}-${char}`}
+                  strokeWidth={xy.interpolate((x, y) => {
+                    const lineWidth = lineDataItem.width
+                    const componentHeight = height
 
-                      return calcStroke({
-                        x, y,
-                        characterIndex,
-                        spread,
-                        maxFat,
-                        lineWidth,
-                        componentHeight,
-                        lineNumber,
-                        characters,
-                      })
-                    })}
-                  >
-                    {char}
-                  </animated.tspan>
-                ))}
+                    return calcStroke({
+                      x, y,
+                      characterIndex,
+                      spread,
+                      maxFat,
+                      lineWidth,
+                      componentHeight,
+                      lineNumber,
+                      characters,
+                    })
+                  })}
+                >
+                  {char}
+                </animated.tspan>
+              ))}
 
-                <tspan>&nbsp;</tspan>
+              <tspan>&nbsp;</tspan>
 
-              </tspan>
-            )
-          })}
+            </tspan>
+          )
+        })}
 
-          <tspan x={10} y={50} dy={`${lineData.length + 1 * lineHeight}em`}>&nbsp;</tspan>
-        </text>
+        <tspan x={10} y={0} dy={`${lineData.length + 1 * lineHeight}em`}>&nbsp;</tspan>
+      </text>
 
-      </svg>
-    </div>
+    </svg>
+
   )
 }
 
-export default DilatedHeading
+export default Paragraph
